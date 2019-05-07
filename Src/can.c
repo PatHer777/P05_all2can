@@ -169,7 +169,7 @@ void JDO_SendCan(void)
 	//HAL_Delay(500);
 	TxData[7]=TxData[7]+1;
  //   HAL_GPIO_WritePin(LED_Green_GPIO_Port, LED_Green_Pin, GPIO_PIN_SET); //Geaenderte Zeile
-
+	HAL_GPIO_TogglePin(LED_Green_GPIO_Port, LED_Green_Pin);
 }
 
 void JDO_CanInit(void)
