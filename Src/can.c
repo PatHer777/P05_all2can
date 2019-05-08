@@ -10,7 +10,7 @@
   * inserted by the user or by software development tools
   * are owned by their respective copyright owners.
   *
-  * Copyright (c) 2018 STMicroelectronics International N.V. 
+  * Copyright (c) 2019 STMicroelectronics International N.V. 
   * All rights reserved.
   *
   * Redistribution and use in source and binary forms, with or without 
@@ -155,12 +155,13 @@ void HAL_CAN_TxMailbox0CompleteCallback(CAN_HandleTypeDef *hcan1)
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan1)
 {
 	if (HAL_CAN_GetRxMessage(&hcan, CAN_RX_FIFO0, &RxHeader, RxData) != HAL_OK) {}
-	HAL_GPIO_TogglePin(LED_Green_GPIO_Port, LED_Green_Pin);
+	//HAL_GPIO_TogglePin(LED_Green_GPIO_Port, LED_Green_Pin);
 	//HAL_Delay(500);
 	//if(RxHeader.StdId == 0x773) {
 	//	if(RxData[5]>=25) HAL_GPIO_WritePin(LED_Green_GPIO_Port,LED_Green_Pin,1);
 	//	else HAL_GPIO_WritePin(LED_Green_GPIO_Port,LED_Green_Pin,0);
 	//	}
+	HAL_GPIO_TogglePin(GPIOF, LED_Y_Pin);
 }
 
 void JDO_SendCan(void)
@@ -170,6 +171,7 @@ void JDO_SendCan(void)
 	TxData[7]=TxData[7]+1;
  //   HAL_GPIO_WritePin(LED_Green_GPIO_Port, LED_Green_Pin, GPIO_PIN_SET); //Geaenderte Zeile
 	HAL_GPIO_TogglePin(LED_Green_GPIO_Port, LED_Green_Pin);
+	HAL_GPIO_TogglePin(GPIOF, LED_G_Pin);
 }
 
 void JDO_CanInit(void)

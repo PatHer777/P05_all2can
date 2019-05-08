@@ -10,7 +10,7 @@
   * inserted by the user or by software development tools
   * are owned by their respective copyright owners.
   *
-  * Copyright (c) 2018 STMicroelectronics International N.V. 
+  * Copyright (c) 2019 STMicroelectronics International N.V. 
   * All rights reserved.
   *
   * Redistribution and use in source and binary forms, with or without 
@@ -59,6 +59,10 @@
 
 /* Private define ------------------------------------------------------------*/
 
+#define LED_Y_Pin GPIO_PIN_0
+#define LED_Y_GPIO_Port GPIOF
+#define LED_G_Pin GPIO_PIN_1
+#define LED_G_GPIO_Port GPIOF
 #define LED_Green_Pin GPIO_PIN_3
 #define LED_Green_GPIO_Port GPIOB
 
