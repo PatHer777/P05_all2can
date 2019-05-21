@@ -59,6 +59,10 @@ CAN_RxHeaderTypeDef	RxHeader;
 uint8_t TxData[8];
 uint8_t RxData[8];
 uint32_t TxMailbox;
+#define gearcut 	0
+#define turnup 		1
+#define turndown 	2
+#define greenled	3
 /* USER CODE END 0 */
 
 CAN_HandleTypeDef hcan;
@@ -161,7 +165,21 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan1)
 	//	if(RxData[5]>=25) HAL_GPIO_WritePin(LED_Green_GPIO_Port,LED_Green_Pin,1);
 	//	else HAL_GPIO_WritePin(LED_Green_GPIO_Port,LED_Green_Pin,0);
 	//	}
-	HAL_GPIO_TogglePin(GPIOF, LED_Y_Pin);
+	//HAL_GPIO_TogglePin(GPIOF, LED_Y_Pin);
+
+	if(RxData[0] & 1<<gearcut){
+		HAL_GPIO_TogglePin(GPIOA, DO0_Pin);
+		//gearcut befehl
+	}
+	if(RxData[0] & 1<<turnup){
+		//hochschalten
+	}
+	if(RxData[0] & 1<<turndown){
+		//Runter schalten
+	}
+	if(RxData[0] & 1<<greenled){
+		//Grünes Licht
+	}
 }
 
 void JDO_SendCan(void)
@@ -170,7 +188,7 @@ void JDO_SendCan(void)
 	//HAL_Delay(500);
 	TxData[7]=TxData[7]+1;
  //   HAL_GPIO_WritePin(LED_Green_GPIO_Port, LED_Green_Pin, GPIO_PIN_SET); //Geaenderte Zeile
-	HAL_GPIO_TogglePin(GPIOA, DO0_Pin);
+//	HAL_GPIO_TogglePin(GPIOA, DO0_Pin);
 	//GPIO_Out2_Pin
 }
 
@@ -180,9 +198,9 @@ void JDO_CanInit(void)
 	sFilterConfig.FilterBank=0;
 	sFilterConfig.FilterMode=CAN_FILTERMODE_IDMASK;
 	sFilterConfig.FilterScale=CAN_FILTERSCALE_32BIT;
-	sFilterConfig.FilterIdHigh=0;
+	sFilterConfig.FilterIdHigh=0x0101<<5; //0x0700;
 	sFilterConfig.FilterIdLow=0x0000<<5;
-	sFilterConfig.FilterMaskIdHigh=0;//0x1FFF<<5;//muss hier geshifted werden???
+	sFilterConfig.FilterMaskIdHigh=0x1FFF<<5;//0x1FFF<<5;//muss hier geshifted werden???
 	sFilterConfig.FilterMaskIdLow=0;//0x1FFF<<5;
 	sFilterConfig.FilterFIFOAssignment=CAN_RX_FIFO0;
 	sFilterConfig.FilterActivation=ENABLE;
