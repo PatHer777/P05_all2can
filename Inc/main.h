@@ -63,8 +63,38 @@
 #define LED_Y_GPIO_Port GPIOF
 #define LED_G_Pin GPIO_PIN_1
 #define LED_G_GPIO_Port GPIOF
-#define LED_Green_Pin GPIO_PIN_3
-#define LED_Green_GPIO_Port GPIOB
+#define DI0_Pin GPIO_PIN_0
+#define DI0_GPIO_Port GPIOA
+#define DI1_Pin GPIO_PIN_1
+#define DI1_GPIO_Port GPIOA
+#define DI2_Pin GPIO_PIN_2
+#define DI2_GPIO_Port GPIOA
+#define DI3_Pin GPIO_PIN_3
+#define DI3_GPIO_Port GPIOA
+#define DI4_Pin GPIO_PIN_4
+#define DI4_GPIO_Port GPIOA
+#define DI5_Pin GPIO_PIN_5
+#define DI5_GPIO_Port GPIOA
+#define DI6_Pin GPIO_PIN_0
+#define DI6_GPIO_Port GPIOB
+#define DI7_Pin GPIO_PIN_1
+#define DI7_GPIO_Port GPIOB
+#define DO0_Pin GPIO_PIN_8
+#define DO0_GPIO_Port GPIOA
+#define DO1_Pin GPIO_PIN_9
+#define DO1_GPIO_Port GPIOA
+#define DO2_Pin GPIO_PIN_10
+#define DO2_GPIO_Port GPIOA
+#define DO3_Pin GPIO_PIN_15
+#define DO3_GPIO_Port GPIOA
+#define DO4_Pin GPIO_PIN_3
+#define DO4_GPIO_Port GPIOB
+#define DO5_Pin GPIO_PIN_4
+#define DO5_GPIO_Port GPIOB
+#define DO6_Pin GPIO_PIN_5
+#define DO6_GPIO_Port GPIOB
+#define DO7_Pin GPIO_PIN_6
+#define DO7_GPIO_Port GPIOB
 
 /* ########################## Assert Selection ############################## */
 /**
