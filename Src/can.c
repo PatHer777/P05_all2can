@@ -59,10 +59,10 @@ CAN_RxHeaderTypeDef	RxHeader;
 uint8_t TxData[8];
 uint8_t RxData[8];
 uint32_t TxMailbox;
-#define gearcut 	0
+#define clutch 	0
 #define upshift		1
 #define downshift 	2
-#define greenled	3
+#define greenled	7
 /* USER CODE END 0 */
 
 CAN_HandleTypeDef hcan;
@@ -168,26 +168,41 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan1)
 	//HAL_GPIO_TogglePin(GPIOF, LED_Y_Pin);
 	//HAL_GPIO_TogglePin(GPIOA, DO0_Pin);
 
+	switch(RxHeader.StdId){
+		case (0x101):
+			if(RxData[0] & 1<<clutch){ //clutch
+				HAL_GPIO_WritePin(GPIOA, clutch_out_Pin, 1); //cluch_out_Pin = Pin1 = DO0_Pin (in earlier version)
+				//Kuppling dauerhaft offen
+			}
+			if( !(RxData[0] & 1<<clutch) ){
+				HAL_GPIO_WritePin(GPIOA, clutch_out_Pin, 0);
+				//Kuppling dauerhaft geschlossen
+			}
+			if(RxData[0] & 1<<upshift){	//hochschalten
+				HAL_GPIO_WritePin(GPIOA, ignitioncut_out_Pin,01); //invertet, 'cause pull up
+				osDelay(10);
+				HAL_GPIO_WritePin(GPIOA, upshift_out_Pin, 1); // Pin2 = (earlier) DO1
+				osDelay(200);
+				HAL_GPIO_WritePin(GPIOA, upshift_out_Pin, 0);
+				HAL_GPIO_WritePin(GPIOA, ignitioncut_out_Pin, 1); // Pin4 (earlier) DO3
+			}
+			else if(RxData[0] & 1<<downshift){	//Runter schalten
+				HAL_GPIO_WritePin(GPIOA, clutch_out_Pin, 1);
+				osDelay(10);
+				HAL_GPIO_WritePin(GPIOA, downshift_out_Pin, 1); //Pin3 = (earlier) DO2
+				osDelay(200);
+				HAL_GPIO_WritePin(GPIOA, downshift_out_Pin, 0);
+				if( !(RxData[0] & 1<<clutch) ){
+					HAL_GPIO_WritePin(GPIOA, clutch_out_Pin, 0);
+					//Kupplung wird geschlossen, wenn das Kupplungsbit nicht gesetzt ist
+				}
+			}
+			if(RxData[0] & 1<<greenled){
+				HAL_GPIO_TogglePin(GPIOB, DO7_Pin);
+				//Grünes Licht
+			}
+		break;
 
-	if(RxData[0] & 1<<gearcut){
-		HAL_GPIO_TogglePin(GPIOA, DO0_Pin);
-		HAL_GPIO_TogglePin(GPIOB, DO4_Pin);
-		HAL_GPIO_TogglePin(GPIOB, DO5_Pin);
-		HAL_GPIO_TogglePin(GPIOB, DO6_Pin);
-		HAL_GPIO_TogglePin(GPIOB, DO7_Pin);
-		//gearcut befehl
-	}
-	if(RxData[0] & 1<<upshift){
-		HAL_GPIO_TogglePin(GPIOA, DO1_Pin);
-		//hochschalten
-	}
-	if(RxData[0] & 1<<downshift){
-		HAL_GPIO_TogglePin(GPIOA, DO2_Pin);
-		//Runter schalten
-	}
-	if(RxData[0] & 1<<greenled){
-		HAL_GPIO_TogglePin(GPIOA, DO3_Pin);
-		//Grünes Licht
 	}
 }
 
