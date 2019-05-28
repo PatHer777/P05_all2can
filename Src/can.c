@@ -60,8 +60,8 @@ uint8_t TxData[8];
 uint8_t RxData[8];
 uint32_t TxMailbox;
 #define gearcut 	0
-#define turnup 		1
-#define turndown 	2
+#define upshift		1
+#define downshift 	2
 #define greenled	3
 /* USER CODE END 0 */
 
@@ -166,18 +166,27 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan1)
 	//	else HAL_GPIO_WritePin(LED_Green_GPIO_Port,LED_Green_Pin,0);
 	//	}
 	//HAL_GPIO_TogglePin(GPIOF, LED_Y_Pin);
+	//HAL_GPIO_TogglePin(GPIOA, DO0_Pin);
+
 
 	if(RxData[0] & 1<<gearcut){
 		HAL_GPIO_TogglePin(GPIOA, DO0_Pin);
+		HAL_GPIO_TogglePin(GPIOB, DO4_Pin);
+		HAL_GPIO_TogglePin(GPIOB, DO5_Pin);
+		HAL_GPIO_TogglePin(GPIOB, DO6_Pin);
+		HAL_GPIO_TogglePin(GPIOB, DO7_Pin);
 		//gearcut befehl
 	}
-	if(RxData[0] & 1<<turnup){
+	if(RxData[0] & 1<<upshift){
+		HAL_GPIO_TogglePin(GPIOA, DO1_Pin);
 		//hochschalten
 	}
-	if(RxData[0] & 1<<turndown){
+	if(RxData[0] & 1<<downshift){
+		HAL_GPIO_TogglePin(GPIOA, DO2_Pin);
 		//Runter schalten
 	}
 	if(RxData[0] & 1<<greenled){
+		HAL_GPIO_TogglePin(GPIOA, DO3_Pin);
 		//Grünes Licht
 	}
 }
