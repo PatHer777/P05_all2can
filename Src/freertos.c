@@ -141,6 +141,7 @@ void StartDefaultTask(void const * argument)
   {
     osDelay(500);
     JDO_SendCan();
+    JDO_GetCan();
   }
   /* USER CODE END StartDefaultTask */
 }
