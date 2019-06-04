@@ -53,6 +53,7 @@
 #include "task.h"
 #include "main.h"
 #include "cmsis_os.h"
+#include "can.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */     
@@ -76,16 +77,20 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN Variables */
-
+volatile uint8_t nCM =0;
 /* USER CODE END Variables */
 osThreadId defaultTaskHandle;
+osThreadId TaskSendCanHandle;
+osThreadId TaskGetCanHandle;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
-   
+   void newCanMessage(void);
 /* USER CODE END FunctionPrototypes */
 
 void StartDefaultTask(void const * argument);
+void TaskSend(void const * argument);
+void TaskGet(void const * argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -97,6 +102,7 @@ void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN Init */
        
+
   /* USER CODE END Init */
 
   /* USER CODE BEGIN RTOS_MUTEX */
@@ -115,6 +121,14 @@ void MX_FREERTOS_Init(void) {
   /* definition and creation of defaultTask */
   osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
+
+  /* definition and creation of TaskSendCan */
+  osThreadDef(TaskSendCan, TaskSend, osPriorityNormal, 0, 128);
+  TaskSendCanHandle = osThreadCreate(osThread(TaskSendCan), NULL);
+
+  /* definition and creation of TaskGetCan */
+  osThreadDef(TaskGetCan, TaskGet, osPriorityNormal, 0, 128);
+  TaskGetCanHandle = osThreadCreate(osThread(TaskGetCan), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -139,16 +153,59 @@ void StartDefaultTask(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-    osDelay(500);
-    JDO_SendCan();
-    JDO_GetCan();
+  //  osDelay(500);
+ //   JDO_SendCan();
+ //   JDO_GetCan();
   }
   /* USER CODE END StartDefaultTask */
 }
 
+/* USER CODE BEGIN Header_TaskSend */
+/**
+* @brief Function implementing the TaskSendCan thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_TaskSend */
+void TaskSend(void const * argument)
+{
+  /* USER CODE BEGIN TaskSend */
+  /* Infinite loop */
+  for(;;)
+  {
+	  osDelay(500);
+	  JDO_SendCan();
+  }
+  /* USER CODE END TaskSend */
+}
+
+/* USER CODE BEGIN Header_TaskGet */
+/**
+* @brief Function implementing the TaskGetCan thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_TaskGet */
+void TaskGet(void const * argument)
+{
+  /* USER CODE BEGIN TaskGet */
+  /* Infinite loop */
+  for(;;)
+  {
+	  osDelay(1);
+	  if(nCM == 1){
+		  JDO_GetCan();
+	  }
+	  nCM =0;
+  }
+  /* USER CODE END TaskGet */
+}
+
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
-     
+void newCanMessage(void){
+	   nCM = 1;
+}
 /* USER CODE END Application */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

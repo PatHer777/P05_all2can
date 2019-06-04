@@ -58,7 +58,7 @@
 #include "main.h"
 
 /* USER CODE BEGIN Includes */
-
+//extern uint8_t newCanMessage = 0;
 /* USER CODE END Includes */
 
 extern CAN_HandleTypeDef hcan;
