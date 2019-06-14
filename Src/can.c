@@ -188,18 +188,18 @@ void JDO_GetCan(void)
 				HAL_GPIO_WritePin(GPIOA, clutch_out_Pin, 0);
 				//Kuppling dauerhaft geschlossen
 			}
-			if(RxData[0] & 1<<upshift){	//hochschalten 2 zurzeit noch 4
+			if(RxData[0] & 1<<upshift){	//hochschalten 2
 				HAL_GPIO_WritePin(GPIOA, ignitioncut_out_Pin, 1); //invertet, 'cause pull up in hardware
 				osDelay(10);
-				HAL_GPIO_WritePin(GPIOA, upshift_out_Pin, 1); // Pin2 = (earlier) DO1
+				HAL_GPIO_WritePin(GPIOA, upshift_out_Pin, 1); // Pin2
 				osDelay(75); //75 ganz ok
 				HAL_GPIO_WritePin(GPIOA, upshift_out_Pin, 0);
-				HAL_GPIO_WritePin(GPIOA, ignitioncut_out_Pin, 0); // Pin4 (earlier) DO3
+				HAL_GPIO_WritePin(GPIOA, ignitioncut_out_Pin, 0); // Pin4 //gearcut
 			}
 			else if(RxData[0] & 1<<downshift){	//Runter schalten 4
 				HAL_GPIO_WritePin(GPIOA, clutch_out_Pin, 1);
 				osDelay(10);
-				HAL_GPIO_WritePin(GPIOA, downshift_out_Pin, 1); //Pin3 = (earlier) DO2
+				HAL_GPIO_WritePin(GPIOA, downshift_out_Pin, 1); //Pin3
 				osDelay(175); //175  klappt
 				HAL_GPIO_WritePin(GPIOA, downshift_out_Pin, 0);
 				if( !(RxData[0] & 1<<clutch) ){
@@ -207,11 +207,10 @@ void JDO_GetCan(void)
 					//Kupplung wird geschlossen, wenn das Kupplungsbit nicht gesetzt ist
 				}
 			}
-			if(RxData[0] & 1<<greenled){  //128
-				HAL_GPIO_TogglePin(GPIOB, DO7_Pin);
-				//osDelay(500);
-				//Grünes Licht
-			}
+			if(RxData[0] & 1<<greenled)  //128
+				HAL_GPIO_WritePin(GPIOB, DO7_Pin, 1); //Grünes Licht
+			else
+				HAL_GPIO_WritePin(GPIOB, DO7_Pin, 0); //Grünes Licht aus
 	break;
 
 	}

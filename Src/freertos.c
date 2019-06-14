@@ -122,17 +122,21 @@ void MX_FREERTOS_Init(void) {
   osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
+#ifdef ph_debug
   /* definition and creation of TaskSendCan */
   osThreadDef(TaskSendCan, TaskSend, osPriorityNormal, 0, 128);
   TaskSendCanHandle = osThreadCreate(osThread(TaskSendCan), NULL);
+#endif //ph_debug
 
   /* definition and creation of TaskGetCan */
   osThreadDef(TaskGetCan, TaskGet, osPriorityNormal, 0, 128);
   TaskGetCanHandle = osThreadCreate(osThread(TaskGetCan), NULL);
 
+
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
+
 
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
@@ -171,13 +175,16 @@ void TaskSend(void const * argument)
 {
   /* USER CODE BEGIN TaskSend */
   /* Infinite loop */
+#ifdef phe_debug
   for(;;)
   {
 	  osDelay(500);
 	  JDO_SendCan();
   }
+#endif //debug
   /* USER CODE END TaskSend */
 }
+
 
 /* USER CODE BEGIN Header_TaskGet */
 /**
