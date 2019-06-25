@@ -4776,25 +4776,25 @@ OUTPUT(F3_Blink_Test2.elf elf32-littlearm)
  .debug_line    0x0000904d      0x60c Middlewares/FreeRTOS/port.o
  .debug_line    0x00009659      0xe95 Middlewares/FreeRTOS/tasks.o
 
-.debug_info     0x00000000    0x141a0
+.debug_info     0x00000000    0x141a1
  .debug_info    0x00000000       0x22 Application/SW4STM32/startup_stm32f303x8.o
- .debug_info    0x00000022     0x184a Application/User/can.o
- .debug_info    0x0000186c      0xf99 Application/User/freertos.o
- .debug_info    0x00002805      0xd0a Application/User/gpio.o
- .debug_info    0x0000350f     0x11b4 Application/User/main.o
- .debug_info    0x000046c3      0xce1 Application/User/stm32f3xx_hal_msp.o
- .debug_info    0x000053a4      0xe26 Application/User/stm32f3xx_it.o
- .debug_info    0x000061ca      0xc82 Drivers/CMSIS/system_stm32f3xx.o
- .debug_info    0x00006e4c     0x1016 Drivers/STM32F3xx_HAL_Driver/stm32f3xx_hal.o
- .debug_info    0x00007e62     0x1954 Drivers/STM32F3xx_HAL_Driver/stm32f3xx_hal_can.o
- .debug_info    0x000097b6     0x14cf Drivers/STM32F3xx_HAL_Driver/stm32f3xx_hal_cortex.o
- .debug_info    0x0000ac85      0xff8 Drivers/STM32F3xx_HAL_Driver/stm32f3xx_hal_gpio.o
- .debug_info    0x0000bc7d     0x1c80 Drivers/STM32F3xx_HAL_Driver/stm32f3xx_hal_rcc.o
- .debug_info    0x0000d8fd     0x231e Middlewares/FreeRTOS/cmsis_os.o
- .debug_info    0x0000fc1b      0xc71 Middlewares/FreeRTOS/heap_4.o
- .debug_info    0x0001088c      0xacd Middlewares/FreeRTOS/list.o
- .debug_info    0x00011359      0x532 Middlewares/FreeRTOS/port.o
- .debug_info    0x0001188b     0x2915 Middlewares/FreeRTOS/tasks.o
+ .debug_info    0x00000022     0x184b Application/User/can.o
+ .debug_info    0x0000186d      0xf99 Application/User/freertos.o
+ .debug_info    0x00002806      0xd0a Application/User/gpio.o
+ .debug_info    0x00003510     0x11b4 Application/User/main.o
+ .debug_info    0x000046c4      0xce1 Application/User/stm32f3xx_hal_msp.o
+ .debug_info    0x000053a5      0xe26 Application/User/stm32f3xx_it.o
+ .debug_info    0x000061cb      0xc82 Drivers/CMSIS/system_stm32f3xx.o
+ .debug_info    0x00006e4d     0x1016 Drivers/STM32F3xx_HAL_Driver/stm32f3xx_hal.o
+ .debug_info    0x00007e63     0x1954 Drivers/STM32F3xx_HAL_Driver/stm32f3xx_hal_can.o
+ .debug_info    0x000097b7     0x14cf Drivers/STM32F3xx_HAL_Driver/stm32f3xx_hal_cortex.o
+ .debug_info    0x0000ac86      0xff8 Drivers/STM32F3xx_HAL_Driver/stm32f3xx_hal_gpio.o
+ .debug_info    0x0000bc7e     0x1c80 Drivers/STM32F3xx_HAL_Driver/stm32f3xx_hal_rcc.o
+ .debug_info    0x0000d8fe     0x231e Middlewares/FreeRTOS/cmsis_os.o
+ .debug_info    0x0000fc1c      0xc71 Middlewares/FreeRTOS/heap_4.o
+ .debug_info    0x0001088d      0xacd Middlewares/FreeRTOS/list.o
+ .debug_info    0x0001135a      0x532 Middlewares/FreeRTOS/port.o
+ .debug_info    0x0001188c     0x2915 Middlewares/FreeRTOS/tasks.o
 
 .debug_abbrev   0x00000000     0x2f9c
  .debug_abbrev  0x00000000       0x12 Application/SW4STM32/startup_stm32f303x8.o

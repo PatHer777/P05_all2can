@@ -175,7 +175,7 @@ void TaskSend(void const * argument)
 {
   /* USER CODE BEGIN TaskSend */
   /* Infinite loop */
-#ifdef phe_debug
+#ifdef ph_debug
   for(;;)
   {
 	  osDelay(500);
